@@ -5,7 +5,7 @@ namespace Golden.Raspberry.Awards.WebAPI.Controllers;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/movies")]
 public class MovieController : ControllerBase
 {
     private readonly ILogger<MovieController> _logger;
@@ -20,6 +20,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet("award-range")]
+    [ProducesResponseType(typeof(AwardRangeResponse), StatusCodes.Status200OK)]
     public async Task<ActionResult<AwardRangeResponse>> GetAwardRange()
     {
         try
