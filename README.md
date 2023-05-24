@@ -14,7 +14,7 @@ This project is a API RESTful with indicators of the Golden Raspberry Awards.
 Clone this repo:
 
 ```bash
-git clone 
+git clone https://github.com/allisondsantos/golden-raspberry-awards.git
 ```
 
 ### Execute the project
