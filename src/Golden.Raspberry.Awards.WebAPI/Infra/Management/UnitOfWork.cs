@@ -10,6 +10,17 @@
             _dbContext = dbContext;
         }
 
+        public async Task<int> CommitAsync(CancellationToken cancellationToken = default)
+        {
+            int totalChanges = 0;
+            if (_dbContext is not null)
+            {
+                totalChanges += await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+
+            return totalChanges;
+        }
+
         public void Dispose()
         {
             _dbContext.Dispose();
