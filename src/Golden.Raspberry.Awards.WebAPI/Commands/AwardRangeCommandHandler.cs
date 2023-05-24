@@ -19,6 +19,7 @@ namespace Golden.Raspberry.Awards.WebAPI.Commands
         {
             var repositorio = _unitOfWork.GetRepository<Movie>();
             var winners = await repositorio.GetAll()
+                .Where(m => m.Winner)
                 .GroupBy(m => m.Producer)
                 .ToListAsync(cancellationToken);
             var producersAwards = GetProducersAwards(winners);
