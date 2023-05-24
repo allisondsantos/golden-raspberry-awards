@@ -21,6 +21,7 @@ public partial class MovieControllerTest
     public async Task GetAwardRangeShouldBeReturnCorrectContent(AwardRangeResponse awardRangeResponse)
     {
         // Arrange
+        RemoveDatabase();
         var client = _factory.CreateClient();
 
         // Act
@@ -35,6 +36,5 @@ public partial class MovieControllerTest
         resutl.Should().BeEquivalentTo(
             awardRangeResponse,
             opt => opt.IncludingProperties());
-
     }
 }

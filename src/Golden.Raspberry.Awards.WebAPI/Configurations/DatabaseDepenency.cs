@@ -11,15 +11,11 @@ namespace Golden.Raspberry.Awards.WebAPI.Configurations
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            var connection = configuration.GetSection("ConnectionString:Sqlite");
-
-            if (connection is null)
-            {
-                throw new Exception("The database connection has not been set up.");
-            }
+            var dataBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GoldenRaspberryAwards.db");
+            var connectionString = $"Data Source={dataBasePath}";
 
             services.AddDbContext<SqliteContext>(options =>
-                options.UseSqlite(connection.Value)
+                options.UseSqlite(connectionString)
             );
 
             services.AddScoped<IDbContext, SqliteContext>();
@@ -47,10 +43,13 @@ namespace Golden.Raspberry.Awards.WebAPI.Configurations
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             var unitOfWork = services.GetService<IUnitOfWork>();
+            if (unitOfWork is null)
+            {
+                throw new Exception($"Service {nameof(unitOfWork)} is unavaliable");
+            }
 
             var bancoSeed = new MovieSeed(unitOfWork);
             await bancoSeed.SeedDataAsync();
         }
     }
-
 }

@@ -58,5 +58,14 @@ namespace Golden.Raspberry.Awards.Tests.Integration
                 },
             }.AsEnumerable();
         }
+
+        private void RemoveDatabase()
+        {
+            var dataBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "GoldenRaspberryAwards.db");
+            if (File.Exists(dataBasePath))
+            {
+                File.Delete(dataBasePath);
+            }
+        }
     }
 }
